@@ -16,6 +16,14 @@ module.exports = {
   register_helmet: (server) => {
     server.use(require('helmet')())
   },
+  register_body_parser: server => {
+    const bodyParser = require('body-parser')
+    const cors = require('cors')
+    server.use(cors())
+    server.use(bodyParser({ extended: true }))
+    server.use(bodyParser.urlencoded({ extended: true }))
+    server.use(bodyParser.json())
+  },
   routes: server => {
     const routes = fs.readdirSync('./src/routes')
     const all_routes = routes.map(route => {
@@ -26,10 +34,9 @@ module.exports = {
   start: async (name, host, port) => {
     const server = module.exports.create_server()
 
+    module.exports.register_body_parser(server)
     module.exports.register_helmet(server)
     module.exports.routes(server)
-
-    server.use(body_parser.json())
 
     return new Promise((resolve, reject) => {
       server.listen({ port: port, host: host }, (error) => module.exports.callback(error, resolve, reject))
