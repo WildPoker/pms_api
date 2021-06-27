@@ -15,7 +15,7 @@ const get_seeder = (config) => {
 **/
 const seed = async (folder = 'datas') => {
   const seeder = get_seeder({
-    database: process.env.DB_URI_DATA + process.env.DB_NAME,
+    database: process.env.DB_SEEDING_URI + process.env.DB_NAME,
     dropDatabase: true
   })
 
