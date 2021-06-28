@@ -1,1 +1,1 @@
-web: set NODE_ENV=development && node ./src
+web: set NODE_ENV=development && node ./src && node ./seeding/seeder

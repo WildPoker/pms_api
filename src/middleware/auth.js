@@ -13,11 +13,15 @@ module.exports = {
   * Check that the user has a valid token for accessing the call
   **/
   isLoggedIn: async (req, res, next) => {
-    const verify_token = await utils_auth.verify_token_from_header(req.headers)
-    if (verify_token.error) {
-      return response.error(res, 401, verify_token.error)
+    try {
+      const verify_token = await utils_auth.verify_token_from_header(req.headers)
+      if (verify_token.error) {
+        return response.error(res, 401, verify_token.error)
+      }
+      return next();
+    } catch (error) {
+      console.log(error)
     }
-    return next();
   },
   /**
    * Check that the user has valid permission level

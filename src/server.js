@@ -5,7 +5,6 @@
 'use strict'
 
 const express = require('express')
-const body_parser = require('body-parser')
 const logger = require('./libs/logger')
 const fs = require('fs')
 
@@ -36,7 +35,12 @@ module.exports = {
 
     module.exports.register_body_parser(server)
     module.exports.register_helmet(server)
-    module.exports.routes(server)
+    try {
+      module.exports.routes(server)
+    } catch (error) {
+      console.log(error)
+    }
+    
 
     return new Promise((resolve, reject) => {
       server.listen({ port: port, host: host }, (error) => module.exports.callback(error, resolve, reject))

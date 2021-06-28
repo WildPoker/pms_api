@@ -18,5 +18,6 @@ router.post('/authentification/register', controller_auth.register)
  * @route This route will handle login
  */
 router.post('/authentification/login', controller_auth.login)
+
  
 module.exports = router
