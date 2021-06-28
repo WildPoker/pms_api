@@ -41,7 +41,7 @@ module.exports = {
       console.log(error)
     }
     
-
+    console.log('Test')
     return new Promise((resolve, reject) => {
       server.listen({ port: port, host: host }, (error) => module.exports.callback(error, resolve, reject))
     })
