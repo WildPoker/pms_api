@@ -15,7 +15,7 @@ const get_seeder = (config) => {
 **/
 const seed = async (folder = 'datas') => {
   const seeder = get_seeder({
-    database: process.env.DB_SEEDING_URI,
+    database: 'mongodb+srv://Admin-Denzel:PMS-PASSWORD@pms-api.ogccl.mongodb.net/pms_api',
     dropDatabase: true
   })
 
