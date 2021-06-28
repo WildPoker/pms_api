@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "main": "index.js",
   "scripts": {
-    "start": "set NODE_ENV=development && nodemon ./src",
+    "start": "set NODE_ENV=development && node ./src",
     "seed": "set NODE_ENV=development && node ./seeding/seeder",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
