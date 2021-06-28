@@ -40,18 +40,17 @@ module.exports = {
     } catch (error) {
       console.log(error)
     }
-    console.log(host, port)
     return new Promise((resolve, reject) => {
-      server.listen({ port: port, host: host }, (error) => module.exports.callback(error, resolve, reject))
+      server.listen(port, (error) => module.exports.callback(error, resolve, reject, port))
     })
   },
-  callback: (error, resolve, reject) => {
+  callback: (error, resolve, reject, port) => {
     if (error) {
       logger.info('Server fail to start !')
       logger.log('Server fail to start !')
       reject(new Error('Server fail to start !'))
     }
-    logger.info('Server Started')
+    logger.info('Server Started ar Port' + port)
     logger.log('Logger Activated')
     resolve(true)
   }
