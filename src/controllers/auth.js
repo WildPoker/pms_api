@@ -36,7 +36,7 @@ module.exports = {
     const args = req.body
     // Check if an account exist for the user
     const user = await utils_user.get_user_by_login(args.login)
-    if (!user) { 
+    if (!user) {
       return response.error(res, 400, "Email doesn't exist")
     }
 

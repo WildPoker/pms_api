@@ -1,7 +1,7 @@
 /**
-* Module for managing the dbs for user
-* @module dbs/user
-*/
+ * Module for managing the dbs for user
+ * @module dbs/user
+ */
 'use strict'
 
 const path = require('path')
@@ -11,7 +11,7 @@ const libs_dbs = require('@src/libs/dbs')
 const mongoose = require('mongoose')
 
 module.exports = {
-  insert: (user) => {
+  insert: user => {
     return model.create(user)
   },
   get_all_users: ({ limit, sort, order, joint, username, email, email_list, user_ID }) => {
@@ -37,15 +37,15 @@ module.exports = {
 
     return model.aggregate(aggregation)
   },
-  get_user_by_id: id => {
-    return model.findOne({ _id: id })
+  get_user_by_id: (id, select) => {
+    return model.findOne({ _id: id }).select(select)
   },
   get_user_by_email: email => {
     return model.findOne({ email })
   },
   get_user_by_login: login => {
-		return model.findOne({ $or: [{ email: login }] })
-	},
+    return model.findOne({ $or: [{ email: login }] })
+  },
   update_by_id: (_id, update) => {
     return model.findOneAndUpdate({ _id: _id }, update, { new: true })
   },

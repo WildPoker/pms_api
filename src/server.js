@@ -1,7 +1,7 @@
 /**
-* The module for managing everything relative to the server
-* @module server
-*/
+ * The module for managing everything relative to the server
+ * @module server
+ */
 'use strict'
 
 const express = require('express')
@@ -12,7 +12,7 @@ module.exports = {
   create_server: () => {
     return express()
   },
-  register_helmet: (server) => {
+  register_helmet: server => {
     server.use(require('helmet')())
   },
   register_body_parser: server => {
@@ -41,7 +41,7 @@ module.exports = {
       console.log(error)
     }
     return new Promise((resolve, reject) => {
-      server.listen(port, (error) => module.exports.callback(error, resolve, reject, port))
+      server.listen(port, error => module.exports.callback(error, resolve, reject, port))
     })
   },
   callback: (error, resolve, reject, port) => {
@@ -50,7 +50,7 @@ module.exports = {
       logger.log('Server fail to start !')
       reject(new Error('Server fail to start !'))
     }
-    logger.info('Server Started ar Port' + port)
+    logger.info('Server Started at Port ' + port)
     logger.log('Logger Activated')
     resolve(true)
   }
