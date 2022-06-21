@@ -37,7 +37,7 @@ module.exports = {
   },
 
   /**
-   * @route This route will handle the project
+   * @route This route will handle update for the project
    */
   update_project_by_id: async (req, res) => {
     logger.log('Creating Project')
