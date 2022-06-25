@@ -8,26 +8,19 @@ const path = require('path')
 const filename = path.basename(__filename, '.js')
 const model = require('@src/models/' + filename)
 const libs_dbs = require('@src/libs/dbs')
-const mongoose = require('mongoose')
 
 module.exports = {
   insert: project => {
     return model.create(project)
   },
-  get_all_project: ({ limit, sort, order, joint, count }) => {
+  get_all_projects: ({ limit, skip, sort, order, joint, count = true }) => {
     // Manage all the matches
     const matches = []
 
-    if (project_ID) {
-      const ids = project_ID.map(id => mongoose.Types.ObjectId(id))
-      matches.push({ _id: { $in: ids } })
+    if (skip && skip !== 1) {
+      skip = limit * skip - limit
     }
-
-    if (projectname !== null) {
-      matches.push({ projectname: { $regex: projectname } })
-    }
-
-    const aggregation = libs_dbs.handle_classic_filters({ matches, order, sort, limit, joint })
+    const aggregation = libs_dbs.handle_classic_filters_with_count({ matches, order, sort, limit, joint, skip, count })
 
     return model.aggregate(aggregation)
   },

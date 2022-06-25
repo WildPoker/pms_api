@@ -20,6 +20,9 @@ module.exports = {
   get_project_by_id: id => {
     return dbs.get_project_by_id({ _id: id })
   },
+  get_all_projects: async ({ limit = 10, skip = 0, sort, order, joint }) => {
+    return await dbs.get_all_projects({ limit, skip, sort, order, joint })
+  },
   delete_project_by_id: id => {
     return dbs.delete_project_by_id({ _id: id })
   },

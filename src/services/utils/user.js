@@ -56,6 +56,13 @@ module.exports = {
     return dbs.get_user_by_login(login)
   },
   /**
+   * Get all the user by its aggregation
+   * @return {Object[]} Return all the user that is fined
+   */
+  get_all_users: async ({ limit = 10, skip = 0, sort, order, joint }) => {
+    return await dbs.get_all_users({ limit, skip, sort, order, joint })
+  },
+  /**
    * Test the email if a user exist in the db with this email
    * @param {String} email The email to test
    * @return {boolean} True if the user exist or else False

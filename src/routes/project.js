@@ -19,7 +19,7 @@ router.post(`/${filename}`, isLoggedIn, controller_project.create_project)
 /**
  * @route This route will handle getting project
  */
-router.get(`/${filename}`, isLoggedIn, controller_project.get_project_by_id)
+router.get(`/${filename}/:_id?`, isLoggedIn, controller_project.get_project)
 
 /**
  * @route This route will handle deleting a project
