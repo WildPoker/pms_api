@@ -14,26 +14,16 @@ module.exports = {
   insert: user => {
     return model.create(user)
   },
-  get_all_users: ({ limit, sort, order, joint, username, email, email_list, user_ID }) => {
+  get_all_users: ({ limit, skip, sort, order, joint, count = true }) => {
     // Manage all the matches
     const matches = []
 
-    if (user_ID) {
-      const ids = user_ID.map(id => mongoose.Types.ObjectId(id))
-      matches.push({ _id: { $in: ids } })
+    if (skip && skip !== 1) {
+      skip = limit * skip - limit
     }
 
-    if (username !== null) {
-      matches.push({ username: { $regex: username } })
-    }
-    if (email !== null) {
-      matches.push({ email: { $regex: email } })
-    }
-    if (email_list !== null) {
-      matches.push({ email: { $in: email_list } })
-    }
-
-    const aggregation = libs_dbs.handle_classic_filters({ matches, order, sort, limit, joint })
+    const unset = ['password']
+    const aggregation = libs_dbs.handle_classic_filters_with_count({ matches, order, sort, limit, joint, skip, count, unset })
 
     return model.aggregate(aggregation)
   },

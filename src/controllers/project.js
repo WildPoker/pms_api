@@ -4,7 +4,10 @@
 
 const logger = require('@src/libs/logger')
 const utils_project = require('@src/services/utils/project')
+const utils_filter = require('@src/services/utils/filter')
 const response = require('@src/libs/response')
+const Project = require('@src/models/project')
+const mongoose = require('mongoose')
 
 module.exports = {
   /**
@@ -24,23 +27,34 @@ module.exports = {
   /**
    * @route This route will handle the project
    */
-  get_project_by_id: async (req, res) => {
-    logger.log('Creating Project')
+  get_project: async (req, res) => {
+    logger.log('Getting Project')
 
-    const params = req.query
+    const args = req.query
+    const params = req.params
+    if (params._id !== undefined) {
+      if (!mongoose.Types.ObjectId.isValid(params._id)) return response.error(res, 400, { message: 'Please provide a valid mongo _id' })
+      const get_project_by_id = await utils_project.get_project_by_id(params._id)
+      if (get_project_by_id.error) return response.error(res, 400, { message: 'Please provide an _id of the project' })
 
-    const get_project = await utils_project.get_project_by_id(params._id)
-    if (!get_project) {
-      return response.error(res, 401, 'The _id you provided cannot find any in our collection')
+      return response.info(res, 201, { message: 'Successfully returned a user', data: get_project_by_id })
     }
-    return response.other(res, 200, { message: 'Successfully queried a Project', data: get_project })
+    // Check type
+    const limit = utils_filter.handle_limit_argument(args.limit)
+    const skip = utils_filter.handle_skip_argument(args.skip)
+    const sort = utils_filter.handle_sort_argument(args.sort, Project)
+    const order = utils_filter.handle_order_argument(args.order)
+    const joint = utils_filter.handle_joint_argument(args.joint)
+
+    const projects = await utils_project.get_all_projects({ limit, skip, sort, order, joint })
+    return response.info(res, 201, { message: 'Successfully returned a project', data: projects[0] })
   },
 
   /**
    * @route This route will handle update for the project
    */
   update_project_by_id: async (req, res) => {
-    logger.log('Creating Project')
+    logger.log('Updating Project')
 
     const body = req.body
 
@@ -55,7 +69,7 @@ module.exports = {
    * @route This route will handle the project
    */
   delete_project_by_id: async (req, res) => {
-    logger.log('Creating Project')
+    logger.log('Deleting Project')
 
     const params = req.query
 

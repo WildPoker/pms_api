@@ -14,6 +14,6 @@ const { isLoggedIn } = require('@src/middleware/auth')
 /**
  * @route This route will handle getting user
  */
-router.get(`/${filename}`, isLoggedIn, controller_user.get_user)
+router.get(`/${filename}/:_id?`, isLoggedIn, controller_user.get_user)
 
 module.exports = router
