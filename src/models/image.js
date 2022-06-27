@@ -19,6 +19,10 @@ const schema = new mongoose.Schema(
     },
     img: {
       type: String
+    },
+    deleted: {
+      type: Boolean,
+      default: false
     }
   },
   {
