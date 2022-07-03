@@ -43,6 +43,12 @@ const schema = new mongoose.Schema(
       type: Number,
       default: 1
     },
+    start_date: {
+      type: Date
+    },
+    end_date: {
+      type: Date
+    },
     deleted: {
       type: Boolean,
       default: false

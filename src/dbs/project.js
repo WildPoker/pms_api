@@ -25,7 +25,7 @@ module.exports = {
     return model.aggregate(aggregation)
   },
   get_project_by_id: id => {
-    return model.findOne({ _id: id, deleted: false })
+    return model.findOne({ _id: id, deleted: false }).populate('progress gallery img')
   },
   update_project_by_id: (_id, update) => {
     console.log(update)

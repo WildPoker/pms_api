@@ -22,9 +22,14 @@ router.post(`/${filename}`, isLoggedIn, controller_project.create_project)
 router.get(`/${filename}/:_id?`, isLoggedIn, controller_project.get_project)
 
 /**
- * @route This route will handle deleting a project
+ * @route This route will handle updating a project
  */
 router.patch(`/${filename}`, isLoggedIn, controller_project.update_project_by_id)
+
+/**
+ * @route This route will handle proceeding a project progress
+ */
+router.patch(`/${filename}/:_id?`, isLoggedIn, controller_project.proceed_next_progress)
 
 /**
  * @route This route will handle deleting a project
