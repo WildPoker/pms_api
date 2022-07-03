@@ -5,6 +5,7 @@
 const logger = require('@src/libs/logger')
 const utils_project = require('@src/services/utils/project')
 const utils_filter = require('@src/services/utils/filter')
+const utils_progress = require('@src/services/utils/progress')
 const response = require('@src/libs/response')
 const Project = require('@src/models/project')
 const mongoose = require('mongoose')
@@ -49,7 +50,6 @@ module.exports = {
     const projects = await utils_project.get_all_projects({ limit, skip, sort, order, joint })
     return response.info(res, 201, { message: 'Successfully returned a project', data: projects[0] })
   },
-
   /**
    * @route This route will handle update for the project
    */
@@ -63,6 +63,41 @@ module.exports = {
       return response.error(res, 401, 'The _id you provided cannot find any in our collection')
     }
     const update_project = await utils_project.update_project_by_id(body._id, body)
+    return response.other(res, 200, { message: 'Successfully updated a Project', data: update_project })
+  },
+  /**
+   * @route This route will handle proceeding for the project
+   */
+  proceed_next_progress: async (req, res) => {
+    logger.log('Proceeding Project')
+
+    const body = req.body
+    const params = req.params
+    let last_step = null
+    let current_step = null
+    let next_step = null
+
+    if (params._id === undefined) {
+      if (!mongoose.Types.ObjectId.isValid(params._id)) return response.error(res, 400, { message: 'Please provide a valid mongo _id' })
+    }
+    const get_project = await utils_project.get_project_by_id(params._id)
+    if (!get_project) {
+      return response.error(res, 401, 'The _id you provided cannot find any in our collection')
+    }
+
+    // Setup steps
+    if (!body.next_step) {
+      last_step = get_project.step - 1
+      current_step = get_project.step
+      next_step = get_project.step++
+    } else {
+      last_step = body.next_step - 2
+      current_step = body.next_step - 1
+      next_step = body.next_step
+    }
+
+    // Get progress by provided step
+
     return response.other(res, 200, { message: 'Successfully updated a Project', data: update_project })
   },
   /**

@@ -17,11 +17,18 @@ const schema = new mongoose.Schema(
       type: String
     },
     status: {
-      type: 'STRING',
-      enum: ['TODO', 'IN_PROGRESS', 'DONE']
+      type: String,
+      enum: ['TODO', 'IN_PROGRESS', 'DONE'],
+      default: 'TODO'
     },
     step: {
       type: Number
+    },
+    start_date: {
+      type: Date
+    },
+    end_date: {
+      type: Date
     }
   },
   {
