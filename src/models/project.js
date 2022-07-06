@@ -50,7 +50,7 @@ const schema = new mongoose.Schema(
       type: Date
     },
     status: {
-      type: Boolean,
+      type: String,
       enum: ['IN_PROGRESS', 'DONE'],
       default: 'IN_PROGRESS'
     },
