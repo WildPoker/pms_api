@@ -49,6 +49,11 @@ const schema = new mongoose.Schema(
     end_date: {
       type: Date
     },
+    status: {
+      type: Boolean,
+      enum: ['IN_PROGRESS', 'DONE'],
+      default: 'IN_PROGRESS'
+    },
     deleted: {
       type: Boolean,
       default: false
