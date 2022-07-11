@@ -11,8 +11,7 @@ const filename = path.basename(__filename, '.js')
 const schema = new mongoose.Schema(
   {
     img: {
-      type: mongoose.Schema.Types.ObjectId,
-      ref: 'image'
+      type: String
     },
     name: {
       type: String,
@@ -29,8 +28,7 @@ const schema = new mongoose.Schema(
     ],
     gallery: [
       {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: 'image'
+        type: String
       }
     ],
     progress: [
