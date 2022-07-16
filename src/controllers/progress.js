@@ -54,6 +54,7 @@ module.exports = {
    * @route This route will handle update for the progress
    */
   update_progress_by_id: async (req, res) => {
+    try {    
     logger.log('Updating Progress')
 
     const body = req.body
@@ -64,6 +65,9 @@ module.exports = {
     }
     const update_progress = await utils_progress.update_progress_by_id(body._id, body)
     return response.other(res, 200, { message: 'Successfully updated a Progress', data: update_progress })
+    } catch (error) {
+      return response.bad_request(res, error)
+    }
   },
   /**
    * @route This route will handle the progress
