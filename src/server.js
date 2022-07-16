@@ -25,10 +25,13 @@ module.exports = {
   },
   routes: server => {
     const routes = fs.readdirSync('./src/routes')
-    const all_routes = routes.map(route => {
-      return server.use(`/app`, require(`./routes/${route}`))
+    return routes.map(route => {
+      try {
+        return server.use(`/app`, require(`./routes/${route}`))
+      } catch (error) {
+        console.log(error)
+      }
     })
-    return all_routes
   },
   start: async (name, host, port) => {
     const server = module.exports.create_server()

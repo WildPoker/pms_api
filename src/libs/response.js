@@ -14,6 +14,12 @@ module.exports = {
   /**
    * @param {Function} res - The response for express
    */
+   bad_request: (res, error) => {
+    res.status(400).json({ message: 'Something Went Wrong', error })
+  },
+  /**
+   * @param {Function} res - The response for express
+   */
   error: (res, status, message) => {
     res.status(status).json({ message })
   },
