@@ -2,11 +2,11 @@
  * @module Authentification This module will handle the controllers of authentification route
  */
 
-const logger = require('@src/libs/logger')
-const utils_progress = require('@src/services/utils/progress')
-const utils_filter = require('@src/services/utils/filter')
-const response = require('@src/libs/response')
-const Progress = require('@src/models/progress')
+const logger = require('../libs/logger')
+const utils_progress = require('../services/utils/progress')
+const utils_filter = require('../services/utils/filter')
+const response = require('../libs/response')
+const Progress = require('../models/progress')
 const mongoose = require('mongoose')
 
 module.exports = {

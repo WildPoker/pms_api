@@ -5,8 +5,8 @@
 'use strict'
 
 const bcrypt = require('bcrypt')
-const dbs_config = require('@src/dbs/config')
-const utils_config = require('@src/services/utils/config')
+const dbs_config = require('../../dbs/config')
+const utils_config = require('./config')
 
 /**
 * Manage the utils function for password

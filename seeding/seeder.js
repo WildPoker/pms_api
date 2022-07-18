@@ -1,9 +1,8 @@
 'use strict'
 
 require('module-alias/register')
-const utils = require('@src/libs/utils')
+const utils = require('../src/libs/utils')
 const mode = utils.mode(process.env.NODE_ENV)
-console.log(mode)
 require('dotenv').config({ path: './env/.env.' + mode })
 const path = require('path')
 const { Seeder } = require('mongo-seeding')

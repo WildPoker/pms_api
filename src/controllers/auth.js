@@ -2,12 +2,12 @@
  * @module Authentification This module will handle the controllers of authentification route
  */
 
-const logger = require('@src/libs/logger')
-const utils_user_type = require('@src/services/utils/user_type')
-const utils_user = require('@src/services/utils/user')
-const utils_auth = require('@src/services/utils/auth')
-const utils_password = require('@src/services/utils/password')
-const response = require('@src/libs/response')
+const logger = require('../libs/logger')
+const utils_user_type = require('../services/utils/user_type')
+const utils_user = require('../services/utils/user')
+const utils_auth = require('../services/utils/auth')
+const utils_password = require('../services/utils/password')
+const response = require('../libs/response')
 
 module.exports = {
   /**

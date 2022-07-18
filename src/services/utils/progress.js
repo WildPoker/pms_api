@@ -6,8 +6,8 @@
 
 const path = require('path')
 const filename = path.basename(__filename, '.js')
-const dbs = require('@src/dbs/' + filename)
-const Progress = require('@src/models/' + filename)
+const dbs = require('../../dbs/' + filename)
+const Progress = require('../../models/' + filename)
 
 /**
  * Manage the utils function for the progress

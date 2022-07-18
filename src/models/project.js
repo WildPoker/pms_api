@@ -8,11 +8,14 @@ const mongoose = require('mongoose')
 const path = require('path')
 const filename = path.basename(__filename, '.js')
 
+const image = {
+  data: Buffer,
+  contentType: String
+}
+
 const schema = new mongoose.Schema(
   {
-    img: {
-      type: String
-    },
+    img: image,
     name: {
       type: String,
       requird: true
@@ -26,11 +29,7 @@ const schema = new mongoose.Schema(
         ref: 'log'
       }
     ],
-    gallery: [
-      {
-        type: String
-      }
-    ],
+    gallery: [image],
     progress: [
       {
         type: mongoose.Schema.Types.ObjectId,
@@ -49,8 +48,8 @@ const schema = new mongoose.Schema(
     },
     status: {
       type: String,
-      enum: ['IN_PROGRESS', 'DONE'],
-      default: 'IN_PROGRESS'
+      enum: ['TODO', 'IN_PROGRESS', 'DONE'],
+      default: 'TODO'
     },
     deleted: {
       type: Boolean,

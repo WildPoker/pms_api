@@ -6,9 +6,7 @@
 
 const express = require('express')
 const router = express.Router()
-const path = require('path')
-const filename = path.basename(__filename, '.js')
-const controller_auth = require('@src/controllers/' + filename)
+const controller_auth = require('../controllers/auth')
 
 /**
  * @route This route will handle register

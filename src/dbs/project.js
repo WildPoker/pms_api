@@ -6,8 +6,8 @@
 
 const path = require('path')
 const filename = path.basename(__filename, '.js')
-const model = require('@src/models/' + filename)
-const libs_dbs = require('@src/libs/dbs')
+const model = require('../models/' + filename)
+const libs_dbs = require('../libs/dbs')
 
 module.exports = {
   insert: project => {
