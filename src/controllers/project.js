@@ -2,12 +2,14 @@
  * @module Authentification This module will handle the controllers of authentification route
  */
 
-const logger = require('@src/libs/logger')
-const utils_project = require('@src/services/utils/project')
-const utils_filter = require('@src/services/utils/filter')
-const utils_progress = require('@src/services/utils/progress')
-const response = require('@src/libs/response')
-const Project = require('@src/models/project')
+const logger = require('../libs/logger')
+const utils_project = require('../services/utils/project')
+const utils_filter = require('../services/utils/filter')
+const fs = require('fs')
+const path = require('path')
+const utils_progress = require('../services/utils/progress')
+const response = require('../libs/response')
+const Project = require('../models/project')
 const mongoose = require('mongoose')
 
 module.exports = {
@@ -19,6 +21,15 @@ module.exports = {
 
     const body = req.body
 
+    const uploads_path = path.join(__dirname).replace('controllers', 'middleware/uploads')
+    // console.log(fs.readFileSync('../middleware/uploads/' + req.file.filename))
+    if (req.file) {
+      const image = {
+        data: fs.readFileSync(uploads_path + '/' + req.file.filename),
+        contentType: req.file.mimetype
+      }
+      body.img = image
+    }
     const create_project = await utils_project.insert_project(body)
     if (!create_project) {
       return response.error(res, 401, 'Unable to create a project')
@@ -63,12 +74,14 @@ module.exports = {
       logger.log('Updating Project')
 
       const body = req.body
-  
+      const project_id = body._id
       const get_project = await utils_project.get_project_by_id(body._id)
       if (!get_project) {
         return response.error(res, 401, 'The _id you provided cannot find any in our collection')
       }
-      const update_project = await utils_project.update_project_by_id(body._id, body)
+      delete body._id
+      const update_project = await utils_project.update_project_by_id(project_id, body)
+
       return response.other(res, 200, { message: 'Successfully updated a Project', data: update_project })
     } catch (error) {
       return response.bad_request(res, error)

@@ -3,10 +3,10 @@
  */
 const path = require('path')
 const filename = path.basename(__filename, '.js')
-const utils_auth = require('@src/services/utils/' + filename)
-const utils_user = require('@src/services/utils/user')
-const utils_user_type = require('@src/services/utils/user_type')
-const response = require('@src/libs/response')
+const utils_auth = require('../services/utils/' + filename)
+const utils_user = require('../services/utils/user')
+const utils_user_type = require('../services/utils/user_type')
+const response = require('../libs/response')
 
 module.exports = {
   /**

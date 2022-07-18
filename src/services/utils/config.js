@@ -6,8 +6,8 @@
 
 const path = require('path')
 const filename = path.basename(__filename, '.js')
-const dbs = require('@src/dbs/' + filename)
-const Config = require('@src/models/' + filename)
+const dbs = require('../../dbs/' + filename)
+const Config = require('../../models/' + filename)
 
 /**
 * Manage the utils function for the config

@@ -7,6 +7,7 @@
 const express = require('express')
 const logger = require('./libs/logger')
 const fs = require('fs')
+const path = require('path')
 
 module.exports = {
   create_server: () => {
@@ -25,13 +26,11 @@ module.exports = {
   },
   routes: server => {
     const routes = fs.readdirSync('./src/routes')
-    return routes.map(route => {
-      try {
-        return server.use(`/app`, require(`./routes/${route}`))
-      } catch (error) {
-        console.log(error)
-      }
+    const all_routes = routes.map(route => {
+      route = path.basename(route, '.js')
+      return server.use(`/app`, require(`./routes/${route}`))
     })
+    return all_routes
   },
   start: async (name, host, port) => {
     const server = module.exports.create_server()

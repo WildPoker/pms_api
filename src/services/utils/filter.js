@@ -4,7 +4,7 @@
  */
 'use strict'
 
-const constants = require('@src/libs/constants')
+const constants = require('../../libs/constants')
 
 /**
  * Manage the utils function for the config

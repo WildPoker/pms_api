@@ -2,12 +2,12 @@
  * @module User This module will handle the controllers of user route
  */
 
-const logger = require('@src/libs/logger')
-const utils_user = require('@src/services/utils/user')
-const utils_filter = require('@src/services/utils/filter')
-const response = require('@src/libs/response')
+const logger = require('../libs/logger')
+const utils_user = require('../services/utils/user')
+const utils_filter = require('../services/utils/filter')
+const response = require('../libs/response')
 const mongoose = require('mongoose')
-const User = require('@src/models/user')
+const User = require('../models/user')
 
 module.exports = {
   /**
