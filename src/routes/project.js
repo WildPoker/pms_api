@@ -15,7 +15,7 @@ const { isLoggedIn } = require('../middleware/auth')
 /**
  * @route This route will handle creating project
  */
-router.post(`/${filename}`, isLoggedIn, upload.single('img'), controller_project.create_project)
+router.post(`/${filename}`, isLoggedIn, upload.fields([{ name: 'img', maxCount: 1}, { name: 'gallery', maxCount: 12}]), controller_project.create_project)
 
 /**
  * @route This route will handle getting project

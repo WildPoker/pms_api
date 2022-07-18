@@ -29,7 +29,7 @@ const schema = new mongoose.Schema(
         ref: 'log'
       }
     ],
-    gallery: image,
+    gallery: [image],
     progress: [
       {
         type: mongoose.Schema.Types.ObjectId,

@@ -22,14 +22,27 @@ module.exports = {
     const body = req.body
 
     const uploads_path = path.join(__dirname).replace('controllers', 'middleware/uploads')
-    // console.log(fs.readFileSync('../middleware/uploads/' + req.file.filename))
-    if (req.file) {
-      const image = {
-        data: fs.readFileSync(uploads_path + '/' + req.file.filename),
-        contentType: req.file.mimetype
+    if (req.files) {
+      if (req.files.img.length) {
+        const image = {
+          data: fs.readFileSync(uploads_path + '/' + req.files.img[0].filename),
+          contentType: req.files.img[0].mimetype
+        }
+        body.img = image
       }
-      body.img = image
+      if (req.files.gallery.length) {
+        const images = []
+        for (const img of req.files.gallery) {
+          images.push({
+            data: fs.readFileSync(uploads_path + '/' + img.filename),
+            contentType: img.mimetype
+          })
+        }
+        body.gallery = images
+      }
     }
+
+    console.log(body)
     const create_project = await utils_project.insert_project(body)
     if (!create_project) {
       return response.error(res, 401, 'Unable to create a project')
