@@ -3,6 +3,7 @@
   "version": "1.0.0",
   "main": "index.js",
   "scripts": {
+    "build": "netlify deploy --prod",
     "start": "set NODE_ENV=development && node ./src",
     "start:nodemon": "set NODE_ENV=local && nodemon ./src",
     "seed": "set NODE_ENV=development && node ./seeding/seeder",
@@ -28,9 +29,10 @@
     "mongo-uri-builder": "^3.2.2",
     "mongoose": "^5.12.15",
     "multer-gridfs-storage": "^5.0.2",
+    "netlify-cli": "^17.16.3",
+    "netlify-lambda": "^2.0.16",
     "winston": "^3.3.3"
   },
-  "devDependencies": {},
   "repository": {
     "type": "git",
     "url": "git+https://github.com/WildPoker/pms_api.git"
