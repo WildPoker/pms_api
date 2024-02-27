@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "main": "index.js",
   "scripts": {
-    "start": "set NODE_ENV=development && node ./src",
+    "start": "export NODE_ENV=development && node ./src",
     "start:nodemon": "export NODE_ENV=local && nodemon ./src",
     "seed": "export NODE_ENV=development && node ./seeding/seeder",
     "seed:local": "set NODE_ENV=local && node ./seeding/seeder",

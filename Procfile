@@ -1,1 +1,1 @@
-web:export NODE_ENV=development && node ./src
+web: export NODE_ENV=development && node ./src
