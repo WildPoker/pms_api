@@ -7,7 +7,7 @@
 const express = require('express')
 const router = express.Router()
 const path = require('path')
-const upload = require('../middleware/upload')
+// const upload = require('../middleware/upload')
 const filename = path.basename(__filename, '.js')
 const controller_project = require('../controllers/' + filename)
 const { isLoggedIn } = require('../middleware/auth')
@@ -15,10 +15,7 @@ const { isLoggedIn } = require('../middleware/auth')
 /**
  * @route This route will handle creating project
  */
-<<<<<<< HEAD
-=======
 // router.post(`/${filename}`, isLoggedIn, upload.fields([{ name: 'img', maxCount: 1}, { name: 'gallery', maxCount: 12}]), controller_project.create_project)
->>>>>>> fcf28627cd2b6594085ead87f44bb1e625849dcb
 router.post(`/${filename}`, isLoggedIn, controller_project.create_project)
 
 /**
