@@ -21,26 +21,26 @@ module.exports = {
 
     const body = req.body
 
-    const uploads_path = path.join(__dirname).replace('controllers', 'middleware/uploads')
-    if (req.files) {
-      if (req.files.img.length) {
-        const image = {
-          data: fs.readFileSync(uploads_path + '/' + req.files.img[0].filename),
-          contentType: req.files.img[0].mimetype
-        }
-        body.img = image
-      }
-      if (req.files.gallery.length) {
-        const images = []
-        for (const img of req.files.gallery) {
-          images.push({
-            data: fs.readFileSync(uploads_path + '/' + img.filename),
-            contentType: img.mimetype
-          })
-        }
-        body.gallery = images
-      }
-    }
+    // const uploads_path = path.join(__dirname).replace('controllers', 'middleware/uploads')
+    // if (req.files) {
+    //   if (req.files.img.length) {
+    //     const image = {
+    //       data: fs.readFileSync(uploads_path + '/' + req.files.img[0].filename),
+    //       contentType: req.files.img[0].mimetype
+    //     }
+    //     body.img = image
+    //   }
+    //   if (req.files.gallery.length) {
+    //     const images = []
+    //     for (const img of req.files.gallery) {
+    //       images.push({
+    //         data: fs.readFileSync(uploads_path + '/' + img.filename),
+    //         contentType: img.mimetype
+    //       })
+    //     }
+    //     body.gallery = images
+    //   }
+    // }
 
     console.log(body)
     const create_project = await utils_project.insert_project(body)
@@ -62,7 +62,7 @@ module.exports = {
         if (!mongoose.Types.ObjectId.isValid(params._id)) return response.error(res, 400, { message: 'Please provide a valid mongo _id' })
         const get_project_by_id = await utils_project.get_project_by_id(params._id)
         if (get_project_by_id.error) return response.error(res, 400, { message: 'Please provide an _id of the project' })
-  
+
         return response.info(res, 201, { message: 'Successfully returned a user', data: get_project_by_id })
       }
       // Check type
@@ -71,13 +71,12 @@ module.exports = {
       const sort = utils_filter.handle_sort_argument(args.sort, Project)
       const order = utils_filter.handle_order_argument(args.order)
       const joint = utils_filter.handle_joint_argument(args.joint)
-  
+
       const projects = await utils_project.get_all_projects({ limit, skip, sort, order, joint })
       return response.info(res, 201, { message: 'Successfully returned a project', data: projects[0] })
     } catch (error) {
       return response.bad_request(res, error)
     }
-
   },
   /**
    * @route This route will handle update for the project
@@ -142,14 +141,14 @@ module.exports = {
     try {
       logger.log('Deleting Project')
 
-    const params = req.query
+      const params = req.query
 
-    const get_project = await utils_project.get_project_by_id(params._id)
-    if (!get_project) {
-      return response.error(res, 401, 'The _id you provided cannot find any in our collection')
-    }
-    const delete_project = await utils_project.delete_project_by_id(params._id)
-    return response.other(res, 200, { message: 'Successfully deleted a Project', data: delete_project })
+      const get_project = await utils_project.get_project_by_id(params._id)
+      if (!get_project) {
+        return response.error(res, 401, 'The _id you provided cannot find any in our collection')
+      }
+      const delete_project = await utils_project.delete_project_by_id(params._id)
+      return response.other(res, 200, { message: 'Successfully deleted a Project', data: delete_project })
     } catch (error) {
       return response.bad_request(res, error)
     }
